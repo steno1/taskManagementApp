@@ -44,7 +44,7 @@ const Wrapper = styled.nav`
     top: 40px;
     left: 0;
     width: 100%;
-    background: var(--primary-100);
+    background: black;
     box-shadow: var(--shadow-2);
     padding: 0.5rem;
     text-align: center;
@@ -57,7 +57,7 @@ const Wrapper = styled.nav`
   .dropdown-btn {
     background: transparent;
     border-color: transparent;
-    color: var(--primary-500);
+    color: white;
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
@@ -78,6 +78,8 @@ const Wrapper = styled.nav`
     }
     .logo-text {
       display: block;
+      color: #557A46;
+      
     }
   }
 `

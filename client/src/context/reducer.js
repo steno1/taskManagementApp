@@ -3,10 +3,17 @@
 import {
 CLEAR_ALERT,
 DISPLAY_ALERT,
+LOGIN_USER_BEGIN,
+LOGIN_USER_ERROR,
+LOGIN_USER_SUCCESS,
+LOGOUT_USER,
 REGISTER_USER_BEGIN,
 REGISTER_USER_ERROR,
-REGISTER_USER_SUCCESS
+REGISTER_USER_SUCCESS,
+TOGGLE_SIDEBAR
 } from "./action";
+
+import { initialState } from "./appContext";
 
 // Reducer function to manage the state based on different actions
 const reducer = (state, action) => {
@@ -56,6 +63,49 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type ===LOGIN_USER_BEGIN) {
+    return {
+      ...state,
+      isLoading:true,
+     
+    };
+  }
+  if (action.type ===LOGIN_USER_SUCCESS) {
+    return {
+      ...state,
+      user:action.payload.user,
+      token:action.payload.token,
+      isLoading:false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "successfully logged in...",
+    };
+  }
+
+  if (action.type ===LOGIN_USER_ERROR) {
+    return {
+      ...state,
+      isLoading:false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type ===TOGGLE_SIDEBAR) {
+    return {
+      ...state,
+     showSideBar:!state.showSideBar
+    };
+  }
+  if (action.type ===LOGOUT_USER) {
+    return {
+      ...initialState,
+     user:null,
+     token:null
     };
   }
   

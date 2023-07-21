@@ -3,9 +3,14 @@
 import {
  CLEAR_ALERT,
  DISPLAY_ALERT,
+ LOGIN_USER_BEGIN,
+ LOGIN_USER_ERROR,
+ LOGIN_USER_SUCCESS,
+ LOGOUT_USER,
  REGISTER_USER_BEGIN,
  REGISTER_USER_ERROR,
- REGISTER_USER_SUCCESS
+ REGISTER_USER_SUCCESS,
+ TOGGLE_SIDEBAR
 } from "./action";
 import React, { useContext, useReducer } from "react";
 
@@ -22,7 +27,8 @@ const initialState = {
   alertText: "",
   alertType: "",
   user:user? JSON.parse(user):null,
-  token:token
+  token:token, 
+  showSideBar:false
 };
 
 
@@ -76,6 +82,28 @@ try {
 }
 clearAlert()
   }
+
+  const loginUser=async(currentUser)=>{
+    console.log(currentUser)
+dispatch({type:LOGIN_USER_BEGIN})
+try {
+  const response=await axios.post("/api/v1/auth/login", currentUser)
+const {user, token}=response.data
+dispatch({type:LOGIN_USER_SUCCESS, 
+payload:{
+  user, token
+}})
+addUserToLocalStorage({user, token});
+  clearAlert();
+} catch (error) {
+  dispatch({type:LOGIN_USER_ERROR,
+  payload:{
+    msg:error.response.data.msg
+  }})
+}
+clearAlert();
+  }
+
   // Action to clear the alert after a specified time
   const clearAlert = () => {
     setTimeout(() => {
@@ -83,10 +111,19 @@ clearAlert()
     }, 3000);
   };
 
+  const toggleSideBar=()=>{
+    dispatch({type:TOGGLE_SIDEBAR})
+  }
+  const logoutUser=()=>{
+    dispatch({type:LOGOUT_USER})
+    removeUserFromLocalStorage();
+  }
+
   // Providing the state and actions to the child components through the context
   return (
     <AppContext.Provider value={{ ...state, displayAlert,
-     clearAlert, registerUser }}>
+     clearAlert, registerUser, loginUser,
+      toggleSideBar, logoutUser }}>
       {children}
     </AppContext.Provider>
   );

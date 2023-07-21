@@ -1,38 +1,56 @@
-import React from 'react'
-import Wrapper from '../assets/wrappers/SmallSidebar'
-import { FaTimes } from 'react-icons/fa'
-import {useAppContext} from "../context/appContext"
-import BlueLogo from './logo'
-import NavLinks from './NavLinks'
+// Import required modules and components
 
+import BlueLogo from './logo'; // Import the BlueLogo component from './logo' file
+import { FaTimes } from 'react-icons/fa'; // Import the FaTimes icon from react-icons/fa
+import { NavLink } from 'react-router-dom'; // Import the NavLink component from react-router-dom
+import React from 'react'; // Import the React library
+import Wrapper from '../assets/wrappers/SmallSidebar'; // Import the Wrapper component from '../assets/wrappers/SmallSidebar' file
+import links from '../utils/links'; // Import the links array from '../utils/links' file
+import { useAppContext } from '../context/appContext'; // Import the useAppContext hook from '../context/appContext' file
+
+// Define the SmallSideBar component
 const SmallSideBar = () => {
-  const {showSideBar, toggleSidebar}=useAppContext()
+  // Access shared state and functions from the application context using the useAppContext hook
+  const { showSideBar, toggleSideBar } = useAppContext();
+
+  // Render the SmallSideBar component
   return (
-   <Wrapper>
-    <div className={showSideBar? "sidebar-container show-sidebar":"sidebar-container"}>
-      <div className='content'>
-<button type='button' className='close-btn' 
-onClick={toggleSidebar}>
-<FaTimes/>
-</button>
-<header>
-<BlueLogo/>
-</header>
-<NavLinks toggleSidebar={toggleSidebar}/>
-
-
+    // Use the Wrapper component to style the sidebar container
+    <Wrapper>
+      <div className={showSideBar ? 'sidebar-container show-sidebar' : 'sidebar-container'}>
+        <div className='content'>
+          {/* Button to close the sidebar */}
+          <button type='button' className='close-btn' onClick={toggleSideBar}>
+            <FaTimes /> {/* Display the FaTimes icon from react-icons/fa */}
+          </button>
+          {/* Header with the BlueLogo component */}
+          <header>
+            <BlueLogo /> {/* Display the BlueLogo component */}
+          </header>
+          <div className='nav-links'>
+            {/* Map through the links array and render NavLink for each link */}
+            {links.map((link) => {
+              const { text, path, id, icon } = link;
+              return (
+                // Navigation link with the link's text, icon, and onClick handler
+                <NavLink
+                  to={path} // Set the link's destination URL
+                  key={id} // Use the link's id as the unique key for efficient rendering
+                  onClick={toggleSideBar} // Call toggleSideBar function when a link is clicked to close the sidebar
+                  activeClassName='active' // Apply the 'active' class when the link's URL matches the current URL
+                  className='nav-link' // Set the default class for all navigation links
+                >
+                  <span className='icon'>{icon}</span> {/* Display the link's icon */}
+                  {text} {/* Display the link's text */}
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
       </div>
+    </Wrapper>
+  );
+};
 
-    </div>
-   </Wrapper>
-  )
-}
-/*The NavLink component is an extension of Link
- with additional features for styling and handling the active state.
- It is especially useful for creating navigation menus where 
-   you want to highlight the currently active route. NavLink applies
-an active class to the rendered element when it matches the
-current URL. You can customize the class name by specifying
- the activeClassName prop. */
-
-export default SmallSideBar
+// Export the SmallSideBar component as the default export
+export default SmallSideBar;

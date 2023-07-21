@@ -25,8 +25,7 @@ const Register = () => {
   // Access the app context using useAppContext hook
   const { isLoading, showAlert,
      displayAlert, registerUser,
-      user,  addUserToLocalStorage,
-       removeUserFromLocalStorage  } = useAppContext();
+      user, loginUser } = useAppContext();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -49,7 +48,7 @@ const Register = () => {
 
     // Register the user if it's a new user, otherwise log a message
     if (isMember) {
-      console.log('Already a member');
+      loginUser(currentUser)
     } else {
       registerUser(currentUser);
     }

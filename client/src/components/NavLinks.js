@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import links from '../utils/links'
 import { NavLink } from 'react-router-dom'
 
@@ -21,4 +21,4 @@ className={({isActive})=>isActive? "nav-link active":"nav-link"}>
   )
 }
 
-export default NavLinks
+export default NavLinks */
