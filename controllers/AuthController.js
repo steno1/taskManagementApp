@@ -89,7 +89,24 @@ const login = async (req, res) => {
 
 // Controller for updating user information
 const update = async (req, res) => {
-  res.send("update");
+  const {email, name, lastName}=req.body;
+  if(!email || !name || !lastName){
+throw new BadRequestError("Please provide all values")
+  }
+
+const user=await User.findOne({_id:req.user.userId})// values from Authenticate.js
+user.email=email
+user.name=name
+user.lastName=lastName
+
+await user.save();
+
+const token=user.createJwt()
+
+res.status(StatusCodes.OK).json({
+  user, token
+})
+
 }
 
 // Exporting the controllers

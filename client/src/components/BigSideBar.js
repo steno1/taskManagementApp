@@ -1,10 +1,23 @@
+import BlueLogo from './logo'
+import NavLinks from './NavLinks'
 import React from 'react'
 import Wrapper from '../assets/wrappers/BigSidebar'
+import { useAppContext } from '../context/appContext'
 
 const BigSideBar = () => {
+  const {showSideBar}=useAppContext()
   return (
     <Wrapper>
- big side bar
+<div className={
+  showSideBar?"sidebar-container":"sidebar-container show-sidebar"}>
+
+<div className='content'>
+<header>
+  <BlueLogo/>
+</header>
+<NavLinks/>
+</div>
+</div>
     </Wrapper>
      
     

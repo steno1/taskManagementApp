@@ -3,6 +3,7 @@
 import "express-async-errors";
 
 import authRouter from "./routes/authRoutes.js";
+import authenticateUser from "./middleWare/Authenticate.js";
 import connectDB from "./db/connectDB.js";
 import dotenv from "dotenv";
 import errorMiddleWare from "./middleWare/errorMiddleWare.js";
@@ -32,7 +33,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 
 // Task routes
-app.use('/api/v1/tasks', taskRouter);
+app.use('/api/v1/tasks',authenticateUser, taskRouter);
 
 // Middleware for handling 404 Not Found errors
 app.use(notFoundMiddleWare);

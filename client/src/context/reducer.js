@@ -10,7 +10,10 @@ LOGOUT_USER,
 REGISTER_USER_BEGIN,
 REGISTER_USER_ERROR,
 REGISTER_USER_SUCCESS,
-TOGGLE_SIDEBAR
+TOGGLE_SIDEBAR,
+UPDATE_USER_BEGIN,
+UPDATE_USER_ERROR,
+UPDATE_USER_SUCCESS
 } from "./action";
 
 import { initialState } from "./appContext";
@@ -108,6 +111,38 @@ const reducer = (state, action) => {
      token:null
     };
   }
+
+  if (action.type ===UPDATE_USER_BEGIN) {
+    return {
+      ...state,
+      isLoading:true,
+     
+    };
+  }
+  if (action.type ===UPDATE_USER_SUCCESS) {
+    return {
+      ...state,
+      user:action.payload.user,
+      token:action.payload.token,
+      isLoading:false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "User profile successfully updated...",
+    };
+  }
+
+  if (action.type ===UPDATE_USER_ERROR) {
+    return {
+      ...state,
+      isLoading:false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+
+  
   
   // Throwing an error for an unknown action type
   throw new Error(`No such action: ${action.type}`);

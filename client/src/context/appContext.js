@@ -10,7 +10,10 @@ import {
  REGISTER_USER_BEGIN,
  REGISTER_USER_ERROR,
  REGISTER_USER_SUCCESS,
- TOGGLE_SIDEBAR
+ TOGGLE_SIDEBAR,
+ UPDATE_USER_BEGIN,
+ UPDATE_USER_ERROR,
+ UPDATE_USER_SUCCESS
 } from "./action";
 import React, { useContext, useReducer } from "react";
 
@@ -39,6 +42,38 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   // Using useReducer to manage the state with the specified reducer and initial state
   const [state, dispatch] = useReducer(reducer, initialState);
+
+//axios
+const authFetch=axios.create({
+  baseURL:"/api/v1",
+  
+})
+//N/B from axios documentation
+// Add a request interceptor
+authFetch.interceptors.request.use(
+  (config) => {
+    config.headers["Authorization"] = `Bearer ${state.token}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+authFetch.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.log(error.response)
+    if (error.response.status === 401) {
+      logoutUser()
+    }
+    return Promise.reject(error);
+  }
+);
+
 
   // Action to display an alert message
   const displayAlert = () => {
@@ -119,11 +154,33 @@ clearAlert();
     removeUserFromLocalStorage();
   }
 
+  const userUpdate=async (currentUser)=>{ 
+    dispatch({type:UPDATE_USER_BEGIN})
+    try {
+      const {data}=await authFetch.patch('/auth/update',currentUser)
+      const {user, token}=data
+      dispatch({type:UPDATE_USER_SUCCESS, 
+      payload:{
+        user, token
+      },} );
+      addUserToLocalStorage({user, token});
+    } catch (error) {
+     if(error.response.status !==401){
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg }
+        });
+      
+    }
+  }
+    clearAlert()
+  }
+
   // Providing the state and actions to the child components through the context
   return (
     <AppContext.Provider value={{ ...state, displayAlert,
      clearAlert, registerUser, loginUser,
-      toggleSideBar, logoutUser }}>
+      toggleSideBar, logoutUser, userUpdate }}>
       {children}
     </AppContext.Provider>
   );

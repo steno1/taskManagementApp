@@ -1,6 +1,7 @@
 import {createTask, deleteTask, getAllTask, showTaskStat, updateTask} 
 from "../controllers/TaskController.js";
 
+import authenticateTask from "../middleWare/Authenticate.js";
 import express from "express"
 
 const router =express.Router();

@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 class unAuthorizedError extends CustomApiError{
 constructor(message){
 super(message)
-this.StatusCode=StatusCodes.UNAUTHORIZED
+this.statusCode=StatusCodes.UNAUTHORIZED
 }
 }
-export default unAuthorizedError
+export default unAuthorizedError;

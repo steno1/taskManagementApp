@@ -2,6 +2,7 @@ import Alert from "./Alert";
 import BigSideBar from "./BigSideBar";
 import BlueLogo from "./logo";
 import FormRow from "./formRow";
+import NavLinks from "./NavLinks";
 import Navbar from "./Navbar";
 import SmallSideBar from "./SmallSideBar";
 
@@ -13,4 +14,5 @@ import SmallSideBar from "./SmallSideBar";
 //import ChartContainer from "./ChartContainer";
 //import Loading from "./Loading";
 
-export {BlueLogo, FormRow, Alert, Navbar, BigSideBar, SmallSideBar}
+export {BlueLogo, FormRow, Alert, Navbar,
+     BigSideBar, SmallSideBar, NavLinks}

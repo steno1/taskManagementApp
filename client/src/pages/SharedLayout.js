@@ -1,8 +1,8 @@
 // Importing required components from the '../components' directory and 'react-router-dom' library.
 
 import { BigSideBar, Navbar, SmallSideBar } from '../components';
-import { Link, Outlet, link } from 'react-router-dom';
 
+import { Outlet } from 'react-router-dom';
 import React from 'react';
 import Wrapper from '../assets/wrappers/SharedLayout';
 
