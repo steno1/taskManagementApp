@@ -1,19 +1,27 @@
 // Importing necessary action types
 
 import {
-CLEAR_ALERT,
-DISPLAY_ALERT,
-LOGIN_USER_BEGIN,
-LOGIN_USER_ERROR,
-LOGIN_USER_SUCCESS,
-LOGOUT_USER,
-REGISTER_USER_BEGIN,
-REGISTER_USER_ERROR,
-REGISTER_USER_SUCCESS,
-TOGGLE_SIDEBAR,
-UPDATE_USER_BEGIN,
-UPDATE_USER_ERROR,
-UPDATE_USER_SUCCESS
+  CLEAR_ALERT,
+  CLEAR_VALUES,
+  CREATE_TASK_BEGIN,
+  CREATE_TASK_ERROR,
+  CREATE_TASK_SUCCESS,
+  DISPLAY_ALERT,
+  EDIT_TASK,
+  GET_TASK_BEGIN,
+  GET_TASK_SUCCESS,
+  HANDLE_CHANGE,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_ERROR,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER,
+  REGISTER_USER_BEGIN,
+  REGISTER_USER_ERROR,
+  REGISTER_USER_SUCCESS,
+  TOGGLE_SIDEBAR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_SUCCESS
 } from "./action";
 
 import { initialState } from "./appContext";
@@ -40,110 +48,206 @@ const reducer = (state, action) => {
     };
   }
 
+  // Handling the action to begin user registration
   if (action.type === REGISTER_USER_BEGIN) {
     return {
       ...state,
-      isLoading:true
-     
-    };
-  }
-  if (action.type ===REGISTER_USER_SUCCESS) {
-    return {
-      ...state,
-      user:action.payload.user,
-      token:action.payload.token,
-      isLoading:false,
-      showAlert: true,
-      alertType: "success",
-      alertText: "user created! Redirecting...",
+      isLoading: true,
     };
   }
 
-  if (action.type ===REGISTER_USER_ERROR) {
+  // Handling the action when user registration is successful
+  if (action.type === REGISTER_USER_SUCCESS) {
     return {
       ...state,
-      isLoading:false,
+      user: action.payload.user,
+      token: action.payload.token,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "User created! Redirecting...",
+    };
+  }
+
+  // Handling the action when user registration fails
+  if (action.type === REGISTER_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
     };
   }
 
-  if (action.type ===LOGIN_USER_BEGIN) {
+  // Handling the action to begin user login
+  if (action.type === LOGIN_USER_BEGIN) {
     return {
       ...state,
-      isLoading:true,
-     
-    };
-  }
-  if (action.type ===LOGIN_USER_SUCCESS) {
-    return {
-      ...state,
-      user:action.payload.user,
-      token:action.payload.token,
-      isLoading:false,
-      showAlert: true,
-      alertType: "success",
-      alertText: "successfully logged in...",
+      isLoading: true,
     };
   }
 
-  if (action.type ===LOGIN_USER_ERROR) {
+  // Handling the action when user login is successful
+  if (action.type === LOGIN_USER_SUCCESS) {
     return {
       ...state,
-      isLoading:false,
+      user: action.payload.user,
+      token: action.payload.token,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Successfully logged in...",
+    };
+  }
+
+  // Handling the action when user login fails
+  if (action.type === LOGIN_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
     };
   }
 
-  if (action.type ===TOGGLE_SIDEBAR) {
+  // Handling the action to toggle the sidebar
+  if (action.type === TOGGLE_SIDEBAR) {
     return {
       ...state,
-     showSideBar:!state.showSideBar
+      showSideBar: !state.showSideBar,
     };
   }
-  if (action.type ===LOGOUT_USER) {
+
+  // Handling the action to log out the user
+  if (action.type === LOGOUT_USER) {
     return {
       ...initialState,
-     user:null,
-     token:null
+      user: null,
+      token: null,
     };
   }
 
-  if (action.type ===UPDATE_USER_BEGIN) {
+  // Handling the action to begin updating user details
+  if (action.type === UPDATE_USER_BEGIN) {
     return {
       ...state,
-      isLoading:true,
-     
+      isLoading: true,
     };
   }
-  if (action.type ===UPDATE_USER_SUCCESS) {
+
+  // Handling the action when user details update is successful
+  if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
-      user:action.payload.user,
-      token:action.payload.token,
-      isLoading:false,
+      user: action.payload.user,
+      token: action.payload.token,
+      isLoading: false,
       showAlert: true,
       alertType: "success",
       alertText: "User profile successfully updated...",
     };
   }
 
-  if (action.type ===UPDATE_USER_ERROR) {
+  // Handling the action when user details update fails
+  if (action.type === UPDATE_USER_ERROR) {
     return {
       ...state,
-      isLoading:false,
+      isLoading: false,
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
     };
   }
 
+  // Handling the action to handle form input changes
+  if (action.type === HANDLE_CHANGE) {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value,
+    };
+  }
 
-  
-  
+  // Handling the action to clear form input values
+  if (action.type === CLEAR_VALUES) {
+    const initialState = {
+      isEditing: false,
+      editTaskId: "",
+      Title: "",
+      Description: "",
+    };
+    return {
+      ...state,
+      ...initialState,
+    };
+  }
+
+  // Handling the action to begin creating a new task
+  if (action.type === CREATE_TASK_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  // Handling the action when a new task is successfully created
+  if (action.type === CREATE_TASK_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "New task created...",
+    };
+  }
+
+  // Handling the action when task creation fails
+  if (action.type === CREATE_TASK_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  // Handling the action to begin fetching all tasks
+  if (action.type === GET_TASK_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert: false,
+    };
+  }
+
+  // Handling the action when fetching all tasks is successful
+  if (action.type === GET_TASK_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      tasks: action.payload.tasks,
+      totalTasks: action.payload.totalTasks,
+      numOfPages: action.payload.numOfPages,
+    };
+  }
+
+  // Handling the action to set a task in edit mode
+  if (action.type === EDIT_TASK) {
+    const task = state.tasks.find((task) => task._id === action.payload.id);
+    const { _id, Title, Description, priority, status } = task;
+    return {
+      ...state,
+      isEditing: true,
+      editTaskId: _id,
+      Title,
+      Description,
+      priority,
+      status,
+    };
+  }
+
   // Throwing an error for an unknown action type
   throw new Error(`No such action: ${action.type}`);
 };

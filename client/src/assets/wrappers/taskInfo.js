@@ -18,5 +18,15 @@ const Wrapper = styled.div`
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
   }
+
+  .Description {
+    border-radius: var(--borderRadius);
+    text-transform: capitalize;
+    letter-spacing: var(--letterSpacing);
+    text-align: end;
+    width: 100px;
+    height: 30px;
+    
+  }
 `
 export default Wrapper

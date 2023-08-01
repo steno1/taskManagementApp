@@ -1,11 +1,14 @@
+import { SearchContainer, TaskContainer } from '../../components'
+
 import React from 'react'
 
 const AllTask = () => {
-  return (
-    <div>
-      allTask
-    </div>
-  )
+  return <>
+  <SearchContainer/>
+  <TaskContainer/>
+  </>
+   
+  
 }
 
 export default AllTask

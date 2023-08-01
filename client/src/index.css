@@ -1,18 +1,19 @@
-*,
-::after,
-::before {
+/* Global box-sizing rule */
+*, ::after, ::before {
   box-sizing: border-box;
 }
 
-/* fonts */
+/* Font imports */
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap');
 
+/* Setting the base font size for the document */
 html {
-  font-size: 100%;
-} /*16px*/
+  font-size: 100%; /* 16px */
+}
 
+/* Root variables for colors, fonts, and other common values */
 :root {
-  /* colors */
+  /* Primary colors */
   --primary-50: #e0fcff;
   --primary-100: #bef8fd;
   --primary-200: #87eaf2;
@@ -24,7 +25,7 @@ html {
   --primary-800: #0a6c74;
   --primary-900: #044e54;
 
-  /* grey */
+  /* Shades of grey */
   --grey-50: #f0f4f8;
   --grey-100: #d9e2ec;
   --grey-200: #bcccdc;
@@ -35,7 +36,8 @@ html {
   --grey-700: #334e68;
   --grey-800: #243b53;
   --grey-900: #102a43;
-  /* rest of the colors */
+
+  /* Additional colors */
   --black: #222;
   --white: #fff;
   --red-light: #f8d7da;
@@ -43,12 +45,13 @@ html {
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
 
-  /* fonts  */
+  /* Fonts */
   --headingFont: 'Roboto Condensed', Sans-Serif;
   --bodyFont: 'Cabin', Sans-Serif;
   --small-text: 0.875rem;
   --extra-small-text: 0.7em;
-  /* rest of the vars */
+
+  /* Other variables */
   --backgroundColor: var(--grey-50);
   --textColor: var(--grey-900);
   --borderRadius: 0.25rem;
@@ -59,16 +62,15 @@ html {
   --fluid-width: 90vw;
   --breakpoint-lg: 992px;
   --nav-height: 6rem;
-  /* box shadow*/
+
+  /* Box shadow */
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
+/* Body styles */
 body {
   background: #FFEAD2;
   font-family: var(--bodyFont);
@@ -77,16 +79,14 @@ body {
   color: var(--textColor);
 }
 
+/* Paragraph styles */
 p {
   margin-bottom: 1.5rem;
   max-width: 40em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+/* Heading styles */
+h1, h2, h3, h4, h5 {
   margin: 0;
   margin-bottom: 1.38rem;
   font-family: var(--headingFont);
@@ -94,7 +94,6 @@ h5 {
   line-height: 1.3;
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
-
 }
 
 h1 {
@@ -118,34 +117,41 @@ h5 {
   font-size: 1.25rem;
 }
 
-small,
-.text-small {
+/* Small text styles */
+small, .text-small {
   font-size: var(--small-text);
 }
 
+/* Anchor (link) styles */
 a {
   text-decoration: none;
   letter-spacing: var(--letterSpacing);
 }
-a,
-button {
+
+/* Anchor and button line height */
+a, button {
   line-height: 1.15;
 }
+
+/* Disabled button cursor */
 button:disabled {
   cursor: not-allowed;
 }
+
+/* Unordered list styles */
 ul {
   list-style-type: none;
   padding: 0;
 }
 
+/* Image styles */
 .img {
   width: 100%;
   display: block;
   object-fit: cover;
 }
-/* buttons */
 
+/* Button styles */
 .btn {
   cursor: pointer;
   color: var(--white);
@@ -159,42 +165,54 @@ ul {
   text-transform: capitalize;
   display: inline-block;
 }
+
 .btn:hover {
   background: var(--primary-700);
   box-shadow: var(--shadow-3);
 }
+
+/* Special style for hipster button */
 .btn-hipster {
   color: var(--primary-500);
   background: var(--primary-200);
 }
+
 .btn-hipster:hover {
   color: var(--primary-200);
   background: var(--primary-700);
 }
+
+/* Block-level button */
 .btn-block {
   width: 100%;
 }
+
+/* Hero button size */
 .btn-hero {
   font-size: 1.25rem;
   padding: 0.5rem 1.25rem;
 }
+
+/* Danger button styles */
 .btn-danger {
   background: var(--red-light);
   color: var(--red-dark);
 }
+
 .btn-danger:hover {
   background: var(--red-dark);
   color: var(--white);
 }
-/* img */
-img{
+
+/* Image styles */
+img {
   height: 100%;
   display: block;
   object-fit: cover;
   border-radius: 30%;
-  
 }
-/* alerts */
+
+/* Alert styles */
 .alert {
   padding: 0.375rem 0.75rem;
   margin-bottom: 1rem;
@@ -208,12 +226,13 @@ img{
   color: var(--red-dark);
   background: var(--red-light);
 }
+
 .alert-success {
   color: var(--green-dark);
   background: var(--green-light);
 }
-/* form */
 
+/* Form styles */
 .form {
   width: 90vw;
   max-width: var(--fixed-width);
@@ -224,9 +243,12 @@ img{
   margin: 3rem auto;
   transition: var(--transition);
 }
+
 .form:hover {
   box-shadow: var(--shadow-4);
 }
+
+/* Form label styles */
 .form-label {
   display: block;
   font-size: var(--smallText);
@@ -234,62 +256,72 @@ img{
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
-.form-input,
-.form-textarea,
-.form-select {
+
+/* Form input, textarea, and select styles */
+.form-input, .form-textarea, .form-select {
   width: 100%;
   padding: 0.375rem 0.75rem;
   border-radius: var(--borderRadius);
   background: var(--backgroundColor);
   border: 1px solid var(--grey-200);
 }
-.form-input,
-.form-select,
-.btn-block {
+
+/* Form input, select, and block-level button height */
+.form-input, .form-select, .btn-block {
   height: 35px;
 }
+
+/* Form row styles */
 .form-row {
   margin-bottom: 1rem;
 }
 
+/* Form textarea height */
 .form-textarea {
   height: 7rem;
 }
+
+/* Form placeholder styles */
 ::placeholder {
   font-family: inherit;
   color: var(--grey-400);
 }
+
+/* Form alert styles */
 .form-alert {
   color: var(--red-dark);
   letter-spacing: var(--letterSpacing);
   text-transform: capitalize;
 }
 
-/* alert */
-
+/* Loading spinner animation */
 @keyframes spinner {
   to {
     transform: rotate(360deg);
   }
 }
 
+/* Loading spinner styles */
 .loading {
   width: 6rem;
   height: 6rem;
   border: 5px solid var(--grey-400);
   border-radius: 50%;
   border-top-color: #B04759;
-  animation: spinner 2s linear infinite;
+  animation: spinner 1.5s linear infinite;
 }
+
+/* Centered loading spinner styles */
 .loading-center {
   margin: 0 auto;
 }
-/* title */
 
+/* Title styles */
 .title {
   text-align: center;
 }
 
+/* Underline below title */
 .title-underline {
   background: var(--primary-500);
   width: 7rem;
@@ -298,30 +330,120 @@ img{
   margin-top: -1rem;
 }
 
+/* Container styles */
 .container {
   width: var(--fluid-width);
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
+/* Full-page height */
 .full-page {
   min-height: 100vh;
 }
 
+/* Coffee info styles */
 .coffee-info {
   text-align: center;
   text-transform: capitalize;
   margin-bottom: 1rem;
   letter-spacing: var(--letterSpacing);
 }
+
 .coffee-info span {
   display: block;
 }
+
 .coffee-info a {
   color: var(--primary-500);
 }
 
+/* Add task container styles */
+.add-task-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
 
+/* Add task form styles */
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Form label styles */
+label {
+  font-weight: bold;
+}
+
+/* Form input, textarea, and select styles */
+input[type='text'], textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Clear button and submit button styles */
+.clear-button, button[type='submit'] {
+  flex: 1;
+  min-width: 0; /* Allows the buttons to shrink if needed */
+  width: 100%; /* Sets the buttons to occupy the full width available */
+}
+
+/* Clear button styles */
+.clear-button {
+  background-color: rgb(100, 100, 226);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.clear-button:hover {
+  background-color: #7A316F;
+}
+
+.clear-button:active {
+  background-color: #461959;
+}
+
+/* Button styles */
+button {
+  background-color: #1A5D1A;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #3F2305;
+}
+
+button:active {
+  background-color: #004080;
+}
+
+/* Media query for larger screens */
 @media screen and (min-width: 992px) {
+  /* Adjusting coffee info styles for larger screens */
   .coffee-info {
     text-align: left;
   }

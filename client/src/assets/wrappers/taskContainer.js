@@ -1,26 +1,32 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
+
   margin-top: 4rem;
+  
   h2 {
     text-transform: none;
   }
+  
   & > h5 {
     font-weight: 700;
+  }
+  
+  .tasks {
+    display: grid;
+    
+    grid-template-columns: 1fr;
+   
+    gap: 2rem; /* Adjusted row-gap to gap for consistency */
     
   }
   
-  .jobs {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 2rem;
-  }
   @media (min-width: 992px) {
-    .jobs {
-      display: grid;
+    .tasks {
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
   }
-`
-export default Wrapper
+`;
+
+export default Wrapper;

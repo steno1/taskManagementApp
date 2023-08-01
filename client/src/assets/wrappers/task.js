@@ -6,11 +6,13 @@ const Wrapper = styled.article`
   display: grid;
   grid-template-rows: 1fr auto;
   box-shadow: var(--shadow-2);
+  
 
   header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--grey-100);
     display: grid;
+    background-color: #E4DCCF;
     grid-template-columns: auto 1fr;
     align-items: center;
     h5 {
@@ -22,7 +24,7 @@ const Wrapper = styled.article`
     height: 60px;
     display: grid;
     place-items: center;
-    background: var(--primary-500);
+    background: #0B666A;
     border-radius: var(--borderRadius);
     font-size: 1.5rem;
     font-weight: 700;
@@ -31,44 +33,76 @@ const Wrapper = styled.article`
     margin-right: 2rem;
   }
   .info {
+    word-wrap: break-word;
+    word-break: break-all;
     h5 {
       margin-bottom: 0.25rem;
     }
     p {
       margin: 0;
+      
       text-transform: capitalize;
       color: var(--grey-400);
       letter-spacing: var(--letterSpacing);
     }
   }
-  .Pending {
+  .In-Progress {
     background: #fcefc7;
     color: #e9b949;
   }
-  .Interview {
+  .Completed {
     background: #e0e8f9;
     color: #647acb;
   }
-  .Declined {
+  .Abandoned {
     color: #d66a6a;
     background: #ffeeee;
   }
   .content {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem 1rem 1rem;
+    
+    
   }
   .content-center {
+    margin-right: 0;
     display: grid;
+  
+    width: 18.75rem;
     grid-template-columns: 1fr;
     row-gap: 0.5rem;
     @media (min-width: 576px) {
       grid-template-columns: 1fr 1fr;
+     
     }
     @media (min-width: 992px) {
       grid-template-columns: 1fr;
+      
     }
     @media (min-width: 1120px) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr ;
     }
+    @media (max-width: 700px) {
+     
+    }
+  }
+  .description{
+    background-color: #CCEEBC;
+    color: black;
+    width: 145%;
+    margin-top: 5px;
+    margin-right: 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    border-radius: var(--borderRadius);
+    text-transform: capitalize;
+    letter-spacing: var(--letterSpacing);
+    text-align: center;
+    padding: 10px;
+    display: block;
+    white-space: pre-line;
+    
+    
+   
   }
 
   .status {
@@ -80,6 +114,7 @@ const Wrapper = styled.article`
     height: 30px;
     
   }
+  
   footer {
     margin-top: 1rem;
   }
@@ -100,6 +135,17 @@ const Wrapper = styled.article`
   }
   &:hover .actions {
     visibility: visible;
+  }
+
+  @media (max-width: 700px) {
+    .description {
+      color: black;
+      word-wrap: break-word;
+      width: 100%;
+      background-color: #CCEEBC;
+      padding: 10px;
+      grid-template-columns: 1fr; /* Adjust grid columns for better mobile layout */
+    }
   }
 `
 
