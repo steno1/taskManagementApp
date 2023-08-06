@@ -41,4 +41,15 @@ export const GET_TASK_BEGIN = "GET_TASK_BEGIN";
 export const GET_TASK_SUCCESS = "GET_TASK_SUCCESS";
 
 // Action type constant for setting a task in edit mode
-export const EDIT_TASK = "EDIT_TASK";
+export const SET_EDIT_TASK = "EDIT_TASK";
+
+export const DELETE_TASK_BEGIN="DELETE_TASK_BEGIN"
+
+export const EDIT_TASK_BEGIN="EDIT_TASK_BEGIN"
+export const EDIT_TASK_SUCCESS="EDIT_TASK_SUCCESS"
+export const EDIT_TASK_ERROR="EDIT_TASK_ERROR"
+
+export const SHOW_STAT_BEGIN="SHOW_STAT_BEGIN"
+export const SHOW_STAT_SUCCESS="SHOW_STAT_SUCCESS"
+export const SHOW_STAT_ERROR="SHOW_STAT_ERROR"
+

@@ -6,7 +6,7 @@ import { useAppContext } from '../context/appContext'
 import { useEffect } from 'react'
 
 const TaskContainer = () => {
-  const {getAllTask, tasks, isLoading, numOfPages, totalTasks, page}
+  const {getAllTask, tasks, isLoading, totalTasks}
   =useAppContext()
   useEffect(()=>{
 getAllTask();

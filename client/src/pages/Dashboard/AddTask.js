@@ -85,7 +85,7 @@ const AddTask = () => {
             value={status}
             onChange={handleTaskInput}
           >
-            <option value="In-Progress">In-Progress</option>
+            <option value="InProgress">InProgress</option>
             <option value="Completed">Completed</option>
             <option value="Abandoned">Abandoned</option>
           </select>

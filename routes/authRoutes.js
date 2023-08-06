@@ -1,13 +1,15 @@
-import { login, register, update } from 
-"../controllers/AuthController.js"
+// Import necessary controller functions and middleware
 
-import authenticateUser from "../middleWare/Authenticate.js";
-import express from "express"
+import { login, register, update } from "../controllers/AuthController.js"; // Importing controller functions
 
-const router=express.Router();
+import authenticateUser from "../middleWare/Authenticate.js"; // Importing authentication middleware
+import express from "express"; // Import the express module
 
-router.route('/register').post(register);
-router.route('/login').post(login)
-router.route('/update').patch(authenticateUser, update)
+const router = express.Router(); // Create an instance of Express Router
 
-export default router;
+// Define routes and associate them with respective controller functions and middleware
+router.route('/register').post(register); // POST request for user registration handled by the 'register' function
+router.route('/login').post(login); // POST request for user login handled by the 'login' function
+router.route('/update').patch(authenticateUser, update); // PATCH request for user profile update, with authentication middleware
+
+export default router; // Export the router instance for use in other files

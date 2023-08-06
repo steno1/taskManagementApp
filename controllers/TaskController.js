@@ -2,10 +2,11 @@
 
 import { BadRequestError, notFoundError } from '../error/index.js'; // Importing custom error classes
 
-import CustomApiError from '../error/CustomApi.js'; // Importing a custom error class (not used in this code)
 import { StatusCodes } from "http-status-codes"; // Importing HTTP status codes
 import Task from '../model/task.js'; // Importing the Task model
 import checkPermission from '../utils/checkPermissions.js'; // Importing the checkPermission function
+import moment from 'moment/moment.js';
+import mongoose from 'mongoose';
 
 // Function to create a new task
 const createTask = async (req, res) => {
@@ -45,12 +46,11 @@ const updateTask = async (req, res) => {
   // Find the task by its ID in the database
   const task = await Task.findOne({ _id: taskId });
   if (!task) {
-    // If the task with the given ID is not found, throw a NotFoundError
-    throw new notFoundError(`No task with id ${taskId}`);
+    throw new notFoundError(`No task with id ${taskId}`); // If the task with the given ID is not found, throw a NotFoundError
   }
   
   // Check if the authenticated user has permission to update the task
-  checkPermission(req.user, task.createdBy); // checkPermission is not defined in this code snippet
+  checkPermission(req.user, task.createdBy); // Note: checkPermission is not defined in this code snippet
 
   // Update the task with the new data in the request body
   const updatedTask = await Task.findOneAndUpdate({ _id: taskId }, req.body, {
@@ -70,15 +70,14 @@ const deleteTask = async (req, res) => {
   // Find the task by its ID in the database
   const task = await Task.findOne({ _id: taskId });
   if (!task) {
-    // If the task with the given ID is not found, throw a NotFoundError
-    throw new notFoundError(`No job with id ${taskId}`);
+    throw new notFoundError(`No job with id ${taskId}`); // If the task with the given ID is not found, throw a NotFoundError
   }
 
   // Check if the authenticated user has permission to delete the task
-  checkPermission(req.user, task.createdBy); // checkPermission is not defined in this code snippet
+  checkPermission(req.user, task.createdBy); // Note: checkPermission is not defined in this code snippet
 
   // Remove the task from the database
-  await task.deleteOne({_id:taskId});
+  await task.deleteOne({ _id: taskId });
 
   // Send a response indicating successful deletion
   res.status(StatusCodes.OK).json({ msg: "Successfully removed job" });
@@ -97,11 +96,81 @@ const getAllTask = async (req, res) => {
   });
 };
 
-// Function to show task statistics (currently only sends a response)
+// Function to show task statistics
 const showTaskStat = async (req, res) => {
-  // Sending a response with a message
-  res.send("Show task stats");
+  // Using the aggregate function of the Task model to perform aggregation operations
+  let stat = await Task.aggregate([
+    // The $match stage filters tasks that are created by the authenticated user
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+    // The $group stage groups the matched tasks by their status and calculates the count of tasks in each group
+    { $group: { _id: "$status", count: { $sum: 1 } } }
+  ]);
+
+  // Using the reduce function to transform the result array into a more readable object
+  stat = stat.reduce((acc, curr) => {
+    const { _id: title, count } = curr;
+    acc[title] = count;
+    /* acc[title] = count;: This line adds a property to the acc 
+    (accumulator) object using the title (status) as the key and sets 
+    its value to the count*/
+    return acc;
+  }, {});
+   
+  // Calculate default task statistics based on task statuses
+const defaultStats = {
+  Completed: stat.Completed || 0, // Count of completed tasks, default to 0 if not available in 'stat' result
+  Abandoned: stat.Abandoned || 0,  // Count of abandoned tasks, default to 0 if not available in 'stat' result
+  InProgress: stat.InProgress || 0 // Count of tasks in progress, default to 0 if not available in 'stat' result
 };
+
+// Perform aggregation to retrieve monthly task application data
+// Perform aggregation to retrieve monthly task application data
+let monthlyApplication = await Task.aggregate([
+  {
+    $match: {
+      createdBy: new mongoose.Types.ObjectId(req.user.userId) // Match tasks created by the authenticated user
+    }
+  },
+  {
+    $group: {
+      _id: {
+        year: {
+          $year: "$createdAt" // Extract the year from the 'createdAt' timestamp of the tasks
+        },
+        month: {
+          $month: "$createdAt" // Extract the month from the 'createdAt' timestamp of the tasks
+        }
+      },
+      count: {
+        $sum: 1 // Count the number of tasks in each group (year and month)
+      }
+    }
+  },
+  {
+    $sort: {
+      "_id.year": -1, // Sort the groups in descending order of year
+      "_id.month": -1  // Within each year, sort the months in descending order
+    }
+  },
+  {
+    $limit: 6 // Limit the result to the most recent 6 months
+  }
+]);
+
+// Map and transform the aggregated result for monthly task application
+monthlyApplication = monthlyApplication.map((item) => {
+  const { _id: { year, month }, count } = item;
+
+  // Convert numeric month to human-readable format (e.g., "Jan 2023")
+  const date = moment().month(month - 1).year(year).format("MMM Y");
+
+  return { date, count }; // Return an object containing the formatted date and task count
+}).reverse(); // Reverse the array to have the oldest data first
+
+// Sending the transformed stat object as a response
+res.status(StatusCodes.OK).json({ defaultStats, monthlyApplication });
+};
+
 
 // Export all the functions as part of the module for use in other files
 export { updateTask, createTask, deleteTask, showTaskStat, getAllTask };

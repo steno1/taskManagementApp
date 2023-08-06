@@ -6,8 +6,11 @@ import {
   CREATE_TASK_BEGIN,
   CREATE_TASK_ERROR,
   CREATE_TASK_SUCCESS,
+  DELETE_TASK_BEGIN,
   DISPLAY_ALERT,
-  EDIT_TASK,
+  EDIT_TASK_BEGIN,
+  EDIT_TASK_ERROR,
+  EDIT_TASK_SUCCESS,
   GET_TASK_BEGIN,
   GET_TASK_SUCCESS,
   HANDLE_CHANGE,
@@ -18,10 +21,14 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
+  SET_EDIT_TASK,
+  SHOW_STAT_BEGIN,
+  SHOW_STAT_ERROR,
+  SHOW_STAT_SUCCESS,
   TOGGLE_SIDEBAR,
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
-  UPDATE_USER_SUCCESS
+  UPDATE_USER_SUCCESS,
 } from "./action";
 
 import { initialState } from "./appContext";
@@ -234,7 +241,7 @@ const reducer = (state, action) => {
   }
 
   // Handling the action to set a task in edit mode
-  if (action.type === EDIT_TASK) {
+  if (action.type ===SET_EDIT_TASK) {
     const task = state.tasks.find((task) => task._id === action.payload.id);
     const { _id, Title, Description, priority, status } = task;
     return {
@@ -247,7 +254,68 @@ const reducer = (state, action) => {
       status,
     };
   }
+  if(action.type===DELETE_TASK_BEGIN){
+return {
+...state,
+isLoading:true
+}
+  }
 
+  if (action.type === EDIT_TASK_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  if (action.type === EDIT_TASK_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Task successfully updated...",
+    };
+  }
+
+  if (action.type === EDIT_TASK_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === SHOW_STAT_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert:false
+    };
+  }
+
+  if (action.type === SHOW_STAT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+  stat:action.payload.stat,
+  monthlyApplication:action.payload.monthlyApplication
+      
+    };
+  }
+
+  if (action.type === SHOW_STAT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+     
+      alertText: action.payload.msg,
+    };
+  }
+  
   // Throwing an error for an unknown action type
   throw new Error(`No such action: ${action.type}`);
 };

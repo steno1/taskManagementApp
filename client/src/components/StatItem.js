@@ -1,7 +1,7 @@
 import React from 'react'
 import Wrapper from '../assets/wrappers/StatItem'
 
-const StartItem = ({count, title, icon, color, bcg}) => {
+const StatItem = ({count, title, icon, color, bcg}) => {
   return (
     <Wrapper color={color} bcg={bcg}>
 <header>
@@ -15,4 +15,4 @@ const StartItem = ({count, title, icon, color, bcg}) => {
   )
 }
 
-export default StartItem
+export default StatItem

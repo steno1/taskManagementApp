@@ -1,24 +1,33 @@
-import {StatusCodes} from 'http-status-codes';
+// Import the necessary module for HTTP status codes
 
-const errorMiddleWare=(err, req, res, next)=>{
-    console.log(err)
-    const defaultError={
-        statusCode:err.statusCode||StatusCodes.INTERNAL_SERVER_ERROR,
-        msg:err.message || "something went wrong try again later"
-    }
-    if(err.name==="validatorError"){
-        defaultError.statusCode=StatusCodes.BAD_REQUEST;
-        //defaultError.msg=err.message
-defaultError.msg=Object.values(err.errors).map((items)=>{
-items.message
-}).join(',')
-    }
-    if(err.code && err.code===11000){
-defaultError.msg=`${Object.keys(err.keyValue)} field has to be unique`
-    }
-    console.log(err)
-res.status(defaultError.statusCode).json({msg:defaultError.msg})
-//res.status(defaultError.statusCode).json({msg:err})
-}
+import { StatusCodes } from 'http-status-codes';
 
-export default errorMiddleWare;
+// Custom error middleware to handle and format errors in the application
+const errorMiddleWare = (err, req, res, next) => {
+  console.log(err); // Log the error for debugging purposes
+
+  // Create a default error object with a default status code and message
+  const defaultError = {
+    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+    msg: err.message || "Something went wrong. Please try again later."
+  };
+
+  // If the error is due to validation errors (mongoose validator)
+  if (err.name === "ValidationError") {
+    defaultError.statusCode = StatusCodes.BAD_REQUEST;
+    // Extract individual error messages and join them into a single string
+    defaultError.msg = Object.values(err.errors).map((item) => item.message).join(', ');
+  }
+
+  // If the error is due to a duplicate key (MongoDB unique constraint)
+  if (err.code && err.code === 11000) {
+    defaultError.msg = `${Object.keys(err.keyValue)[0]} field has to be unique`;
+  }
+
+  console.log(err); // Log the error again for additional debugging
+
+  // Send a response with the formatted error message and status code
+  res.status(defaultError.statusCode).json({ msg: defaultError.msg });
+};
+
+export default errorMiddleWare; // Export the error middleware for use in other files

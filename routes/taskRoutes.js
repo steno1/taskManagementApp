@@ -1,16 +1,18 @@
-import {createTask, deleteTask, getAllTask, showTaskStat, updateTask} 
-from "../controllers/TaskController.js";
+// Import necessary controller functions and middleware
 
-import authenticateTask from "../middleWare/Authenticate.js";
-import express from "express"
+import { createTask, deleteTask, getAllTask, showTaskStat, updateTask } from "../controllers/TaskController.js"; // Importing controller functions
 
-const router =express.Router();
+import authenticateTask from "../middleWare/Authenticate.js"; // Importing task-specific authentication middleware
+import express from "express"; // Import the express module
 
+const router = express.Router(); // Create an instance of Express Router
 
-router.route('/createTask').post(createTask)
-router.route('/getAllTask').get(getAllTask)
-router.route('/stat').get(showTaskStat)
-router.route('/:id').delete(deleteTask)
-router.route('/:id').patch(updateTask)
+// Define routes and associate them with respective controller functions and middleware
 
-export default router
+router.route('/createTask').post(createTask); // POST request for task creation handled by the 'createTask' function
+router.route('/getAllTask').get(getAllTask); // GET request to fetch all tasks handled by the 'getAllTask' function
+router.route('/stat').get(showTaskStat); // GET request for task statistics handled by the 'showTaskStat' function
+router.route('/:id').delete(authenticateTask, deleteTask); // DELETE request for task deletion, with task-specific authentication middleware
+router.route('/:id').patch(authenticateTask, updateTask); // PATCH request for task update, with task-specific authentication middleware
+
+export default router; // Export the router instance for use in other files

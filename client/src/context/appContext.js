@@ -6,8 +6,11 @@ import {
   CREATE_TASK_BEGIN,
   CREATE_TASK_ERROR,
   CREATE_TASK_SUCCESS,
+  DELETE_TASK_BEGIN,
   DISPLAY_ALERT,
-  EDIT_TASK,
+  EDIT_TASK_BEGIN,
+  EDIT_TASK_ERROR,
+  EDIT_TASK_SUCCESS,
   GET_TASK_BEGIN,
   GET_TASK_SUCCESS,
   HANDLE_CHANGE,
@@ -18,6 +21,10 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
+  SET_EDIT_TASK,
+  SHOW_STAT_BEGIN,
+  SHOW_STAT_ERROR,
+  SHOW_STAT_SUCCESS,
   TOGGLE_SIDEBAR,
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
@@ -45,8 +52,8 @@ const initialState = {
   // Task form state
   Title:"",
   Description:"",
-  statusTypeOption:['In-Progress', 'Completed', 'Abandoned'],
-  status:'In-Progress',
+  statusTypeOption:['InProgress', 'Completed', 'Abandoned'],
+  status:'InProgress',
   priorityTypeOption:['High', 'Average', 'Low'],
   priority:"Average",
   // Sidebar state
@@ -56,6 +63,8 @@ const initialState = {
   totalTasks:0,
   numOfPages:1,
   page:1,
+  stat:[],
+  monthlyApplication:[]
 };
 
 
@@ -258,19 +267,59 @@ const AppProvider = ({ children }) => {
 
   // Action to set a task in edit mode
   const setEditTask=async(id)=>{
-    dispatch({type:EDIT_TASK, payload:{
+    dispatch({type:SET_EDIT_TASK, payload:{
       id
     }});
   }
 
   // Action to edit a task
   const editTask=async()=>{
-    console.log("edit task")
+    dispatch({type:EDIT_TASK_BEGIN});
+   
+    try {
+      const {Title, Description, status, priority}=state;
+      await authFetch.patch(`tasks/${state.editTaskId}`,{
+        Title,
+        Description, 
+        status,
+         priority
+      })
+      dispatch({type:EDIT_TASK_SUCCESS})
+      dispatch({type:CLEAR_VALUES})
+    } catch (error) {
+      if(error.response.status===401)return
+      dispatch({type:EDIT_TASK_ERROR,payload:{
+        payload:{msg:error.response.data.msg}
+      }})
+    }
+    clearAlert();
   }
 
-  // Action to delete a task
-  const deleteTask=(id)=>{
-    console.log(`delete task : ${id}`)
+ // Action to delete a task
+ const deleteTask = async (jobId) => {
+  dispatch({ type: DELETE_TASK_BEGIN });
+  try {
+    await authFetch.delete(`tasks/${jobId}`);
+    getAllTask(); // Refresh the task list after deletion
+  } catch (error) {
+    console.log(error.response);
+    // Handle errors here (e.g., logoutUser() or display an error message)
+  }
+  }
+  const showStat=async()=>{
+dispatch({type:SHOW_STAT_BEGIN});
+try {
+  const {data}=await authFetch.get(`tasks/stat`)
+  dispatch({type:SHOW_STAT_SUCCESS, payload:{
+    stat:data.defaultStats,
+    monthlyApplication:data.monthlyApplication
+  }})
+} catch (error) {
+  dispatch({type:SHOW_STAT_ERROR, payload:{
+    msg:error.response.data.msg
+  }})
+}
+clearValues()
   }
 
   // Return the context provider with the state and actions as values
@@ -280,7 +329,7 @@ const AppProvider = ({ children }) => {
       toggleSideBar, logoutUser, 
       userUpdate, handleChanges, clearValues,
       createTask, getAllTask, setEditTask,
-      deleteTask, editTask }}>
+      deleteTask, editTask, showStat }}>
       {children}
     </AppContext.Provider>
   );
