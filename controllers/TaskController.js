@@ -5,8 +5,10 @@ import { BadRequestError, notFoundError } from '../error/index.js'; // Importing
 import { StatusCodes } from "http-status-codes"; // Importing HTTP status codes
 import Task from '../model/task.js'; // Importing the Task model
 import checkPermission from '../utils/checkPermissions.js'; // Importing the checkPermission function
-import moment from 'moment/moment.js';
+import moment from 'moment/moment.js'; // Importing the Moment.js library for date manipulation
 import mongoose from 'mongoose';
+
+// Importing the Mongoose library for interacting with MongoDB
 
 // Function to create a new task
 const createTask = async (req, res) => {
@@ -83,10 +85,58 @@ const deleteTask = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Successfully removed job" });
 };
 
-// Function to get all tasks created by the authenticated user
 const getAllTask = async (req, res) => {
-  // Fetch all tasks from the database that belong to the user with the specified createdBy field
-  const tasks = await Task.find({ createdBy: req.user.userId });
+  // Extracting query parameters from the request
+  const { status, priority, sort, search } = req.query;
+
+  // Constructing a query object to filter tasks based on createdBy field
+  const queryObject = {
+    createdBy: req.user.userId
+  };
+
+  // If status is not "all", add status as a filter to the query
+  if (status !== "all") {
+    queryObject.status = status;
+  }
+  if(priority !=="all"){
+    queryObject.priority=priority  
+  }
+ // If search is provided, use a regex to search in both title and description
+if (search) {
+  // Construct a search query using a regular expression for case-insensitive matching
+  queryObject.$or = [
+    { Title: { $regex: search, $options: "i" } }, // Search in Title field
+    { Description: { $regex: search, $options: "i" } } // Search in Description field
+  ];
+}
+
+// Find tasks based on the constructed query object
+  // Note: No await here, as this line only creates a query
+let result = Task.find(queryObject);
+
+ // Chain sorting conditions based on the 'sort' parameter
+  // Note: No sorting is applied yet, these are just potential conditions
+
+// Check the value of the 'sort' parameter for sorting tasks
+if (sort === 'latest') {
+  // Sort tasks in descending order of creation date (newest first)
+  result = result.sort("-createdAt");
+}
+if (sort === 'Oldest') {
+  // Sort tasks in ascending order of creation date (oldest first)
+  result = result.sort("createdAt");
+}
+if (sort === 'A-Z') {
+  // Sort tasks in ascending alphabetical order of title
+  result = result.sort("Title");
+}
+if (sort === 'Z-A') {
+  // Sort tasks in descending alphabetical order of title
+  result = result.sort("-Title");
+}
+
+  // Await the execution of the query and store the result in 'tasks'
+  const tasks = await result;
 
   // Send a response with the fetched tasks, totalTasks count, and numOfPages (currently hardcoded to 1)
   res.status(StatusCodes.OK).json({
@@ -95,6 +145,7 @@ const getAllTask = async (req, res) => {
     numOfPages: 1
   });
 };
+
 
 // Function to show task statistics
 const showTaskStat = async (req, res) => {
