@@ -1,18 +1,21 @@
-import React from 'react'
-import Wrapper from '../assets/wrappers/StatItem'
+import React from 'react'; // Importing React
+import Wrapper from '../assets/wrappers/StatItem'; // Importing a wrapper component for the StatItem
 
-const StatItem = ({count, title, icon, color, bcg}) => {
+// Defining the StatItem component
+const StatItem = ({ count, title, icon, color, bcg }) => {
   return (
-    <Wrapper color={color} bcg={bcg}>
-<header>
-    <span className='count'>{count}</span>
-<span className='icon'>{icon}</span>
-</header>
-<h5 className='title'>{title}</h5>
-
-
+    <Wrapper color={color} bcg={bcg}> {/* Applying the specified color and background color */}
+      <header>
+        {/* Displaying the count of the statistic */}
+        <span className='count'>{count}</span>
+        {/* Displaying the icon associated with the statistic */}
+        <span className='icon'>{icon}</span>
+      </header>
+      {/* Displaying the title of the statistic */}
+      <h5 className='title'>{title}</h5>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default StatItem
+// Exporting the StatItem component as the default export
+export default StatItem;

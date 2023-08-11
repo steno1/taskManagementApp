@@ -13,19 +13,22 @@ const Wrapper = styled.section`
     border-radius: var(--borderRadius);
   }
   .pageBtn {
-    background: transparent;
-    border-color: transparent;
+    background: #5C4B99;
+    border-color: #8CABFF;
     width: 50px;
     height: 40px;
     font-weight: 700;
     font-size: 1.25rem;
-    color: var(--primary-500);
+    color: white;
     transition: var(--transition);
     border-radius: var(--borderRadius);
     cursor: pointer;
   }
+  .pageBtn:hover{
+    background-color:#4477CE;
+  }
   .active {
-    background: var(--primary-500);
+    background: #5B9A8B !important;
     color: var(--white);
   }
   .prev-btn,

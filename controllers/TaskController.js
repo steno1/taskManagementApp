@@ -95,10 +95,10 @@ const getAllTask = async (req, res) => {
   };
 
   // If status is not "all", add status as a filter to the query
-  if (status !== "all") {
+  if (status && status !== "all") {
     queryObject.status = status;
   }
-  if(priority !=="all"){
+  if(priority && priority !=="all"){
     queryObject.priority=priority  
   }
  // If search is provided, use a regex to search in both title and description
@@ -135,17 +135,28 @@ if (sort === 'Z-A') {
   result = result.sort("-Title");
 }
 
-  // Await the execution of the query and store the result in 'tasks'
-  const tasks = await result;
+// Pagination setup
+const page = Number(req.query.page) || 1;  // Get the requested page number from query, default to 1 if not provided
+const limit = Number(req.query.limit) || 10;  // Get the number of items per page from query, default to 10 if not provided
+const skip = (page - 1) * limit;  // Calculate the number of items to skip based on the requested page number and items per page
+result = result.skip(skip).limit(limit);  // Apply the pagination by skipping 'skip' items and limiting the result to 'limit' items
 
-  // Send a response with the fetched tasks, totalTasks count, and numOfPages (currently hardcoded to 1)
-  res.status(StatusCodes.OK).json({
-    tasks,
-    totalTasks: tasks.length,
-    numOfPages: 1
-  });
+// Await the execution of the query and store the result in 'tasks'
+const tasks = await result;
+
+// Calculate the total number of tasks based on the query filters
+const totalTasks = await Task.countDocuments(queryObject);
+
+// Calculate the total number of pages required for pagination
+const numOfPages = Math.ceil(totalTasks / limit);
+
+// Send a response with the fetched tasks, totalTasks count, and numOfPages
+res.status(StatusCodes.OK).json({
+  tasks, // The tasks for the requested page
+  totalTasks, // The total number of tasks matching the query filters
+  numOfPages // The total number of pages required for pagination
+});
 };
-
 
 // Function to show task statistics
 const showTaskStat = async (req, res) => {

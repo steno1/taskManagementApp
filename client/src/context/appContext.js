@@ -1,7 +1,9 @@
 // Importing necessary action types
 
 import {
+  CHANGE_PAGE,
   CLEAR_ALERT,
+  CLEAR_FILTERS,
   CLEAR_VALUES,
   CREATE_TASK_BEGIN,
   CREATE_TASK_ERROR,
@@ -56,9 +58,11 @@ const initialState = {
   status:'InProgress',
   priorityTypeOption:['High', 'Average', 'Low'],
   priority:"Average",
-  // Sidebar state
+  search:"",
+  searchStatus: "all",
+  sort:"Latest",
+  sortOptions:["Latest", "Oldest", "A-Z", "Z-A"],
   showSideBar:false,
-  // Tasks data
   tasks:[],
   totalTasks:0,
   numOfPages:1,
@@ -247,10 +251,15 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   }
-
+  
   // Action to get all tasks
   const getAllTask=async()=>{
-    let url=`/tasks/getAllTask`
+ const {priority,search,searchStatus,sort,page}=state   
+let url=`/tasks/getAllTask?page=${page}&status=${searchStatus}&priority=${priority}&sort=${sort}`
+    if(search){
+url=url+`&search=${search}`
+    }
+    
     dispatch({type:GET_TASK_BEGIN})
     try {
       const {data}=await authFetch.get(url)
@@ -259,8 +268,7 @@ const AppProvider = ({ children }) => {
         tasks, totalTasks,numOfPages
       }})
     } catch (error) {
-      console.log(error.response)
-      //logoutUser()
+      logoutUser()
     }
     clearAlert();
   }
@@ -302,8 +310,7 @@ const AppProvider = ({ children }) => {
     await authFetch.delete(`tasks/${jobId}`);
     getAllTask(); // Refresh the task list after deletion
   } catch (error) {
-    console.log(error.response);
-    // Handle errors here (e.g., logoutUser() or display an error message)
+    logoutUser();
   }
   }
   const showStat=async()=>{
@@ -315,21 +322,29 @@ try {
     monthlyApplication:data.monthlyApplication
   }})
 } catch (error) {
-  dispatch({type:SHOW_STAT_ERROR, payload:{
-    msg:error.response.data.msg
-  }})
+  logoutUser();
 }
-clearValues()
+clearAlert()
+  }
+
+  const clearFilters=()=>{
+    dispatch({type:CLEAR_FILTERS})
+  }
+
+  const changePage=(page)=>{
+    dispatch({type:CHANGE_PAGE,payload:{page}
+  }
+    )
   }
 
   // Return the context provider with the state and actions as values
   return (
     <AppContext.Provider value={{ ...state, displayAlert,
-     clearAlert, registerUser, loginUser,
+     clearAlert, registerUser, loginUser, clearFilters,
       toggleSideBar, logoutUser, 
       userUpdate, handleChanges, clearValues,
       createTask, getAllTask, setEditTask,
-      deleteTask, editTask, showStat }}>
+      deleteTask, editTask, showStat, changePage }}>
       {children}
     </AppContext.Provider>
   );

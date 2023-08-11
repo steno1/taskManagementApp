@@ -1,101 +1,78 @@
-import React from 'react';
-import { useAppContext } from '../context/appContext';
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
-import Wrapper from '../assets/wrappers/PageBtnContainer';
+// Importing necessary components and dependencies
 
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi'; // Importing icons for pagination
+
+import React from 'react'; // Importing React
+import Wrapper from '../assets/wrappers/PageBtnContainer'; // Importing a wrapper component
+import { useAppContext } from '../context/appContext'; // Importing the app context for state management
+
+// Defining the PageBtnContainer component
 const PageBtnContainer = () => {
+  // Extracting necessary data and functions from the app context using the useAppContext hook
   const { numOfPages, page, changePage } = useAppContext();
-  const pages = Array.from({ length: numOfPages }, (_, index) => index + 1);
 
-  // Modify the pages array to display a maximum of 7 pages and add ellipsis
-  let displayedPages = pages;
+  // Generating an array of page numbers based on the numOfPages
+  const pages = Array.from({ length: numOfPages }, (_, index) => {
+    return index + 1;
+  });
 
-  if (numOfPages > 7) {
-    const maxPages = 7;
-    const ellipsis = '...';
-
-    if (page > maxPages - 3)
-    /*if (page > maxPages - 3) checks if the current page (page)
-     is greater than maxPages - 3. This condition is used to 
-     determine if the displayed pages should include
-     an ellipsis and a subset of pages closer to the current page. */
-    
-    {
-      displayedPages = [1, ellipsis, ...pages.slice
-        (page - (maxPages - 4), page + 1)];
-
-/* If the condition is true, the displayedPages array is updated
- as follows:
-The first page (1) is added to the beginning of the array.
-The ellipsis string is added next.
-A portion of the pages array is sliced using the slice method. 
-The slice starts from the index page - (maxPages - 4) 
-(to include some preceding pages) and ends at page + 1 
-(to include the current page). The spread operator (...) 
-is used to concatenate these sliced pages with the existing array.*/
-    } else if (page < maxPages - 3) {
-      displayedPages = [...pages.slice(0, maxPages - 1), 
-        ellipsis, numOfPages];
-    }
-  }
-  /* If the first condition is false, the second condition else if
-   (page < maxPages - 3) is checked. This condition is used to 
-   determine if the displayed pages should include an ellipsis 
-   and a subset of pages closer to the last page.
-
-If the second condition is true, the displayedPages array is
- updated as follows:
-
-A portion of the pages array is sliced using the slice method. 
-The slice starts from the index 0 and ends at maxPages - 1 
-(excluding the last page). This portion represents the initial 
-pages to be displayed. The ellipsis string is added next.
-The last page number (numOfPages) is added to the end of the array.*/
-
+  // Function to navigate to the next page
   const nextPage = () => {
     let newPage = page + 1;
+    // Ensure that the new page does not exceed the total number of pages
     if (newPage > numOfPages) {
-      newPage = 1;
+     // newPage = numOfPages; // Set the new page to the last page if exceeding
+      // Alternatively, you can loop back to the first page:
+       newPage = 1;
     }
+    // Calling the changePage function from the context to update the page state
     changePage(newPage);
-  };
-/* nextPage increments the current page (page) by 1. If the new page
- exceeds the total number of pages (numOfPages), it wraps around 
- to the first page.*/  
+  }
 
+  // Function to navigate to the previous page
   const prevPage = () => {
     let newPage = page - 1;
+    // Ensure that the new page is not less than the first page
     if (newPage < 1) {
-      newPage = numOfPages;
+      newPage = 1; // Set the new page to the first page if less
+      // Alternatively, you can loop to the last page:
+      // newPage = numOfPages;
     }
+    // Calling the changePage function from the context to update the page state
     changePage(newPage);
-  };
-/* prevPage decrements the current page by 1. If the new page
- becomes less than 1, it wraps around to the last page.*/
+  }
+
+  // Rendering the pagination component
   return (
     <Wrapper>
+      {/* Button for navigating to the previous page */}
       <button className='prev-btn' onClick={prevPage}>
-        <HiChevronDoubleLeft />
-        prev
+        <HiChevronDoubleLeft /> Prev
       </button>
       <div className='btn-container'>
-        {displayedPages.map((pageNumber, index) => (
-          <button
-            type='button'
-            className={pageNumber === page ? 'pageBtn active' : 'pageBtn'}
-            key={pageNumber}
-            onClick={() => changePage(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
+        {/* Mapping through the array of page numbers to create buttons */}
+        {pages.map((pageNumber) => {
+          return (
+            <button
+              type='button'
+              key={pageNumber}
+              className={
+                pageNumber === page ? 'pageBtn-active' : 'pageBtn'
+              } // Applying different styles for the active page button
+              onClick={() => changePage(pageNumber)} // Clicking the button updates the page state
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
       </div>
+      {/* Button for navigating to the next page */}
       <button className='prev-btn' onClick={nextPage}>
-        <HiChevronDoubleRight />
-        next
+        Next <HiChevronDoubleRight />
       </button>
     </Wrapper>
   );
 };
 
+// Exporting the PageBtnContainer component as the default export
 export default PageBtnContainer;
