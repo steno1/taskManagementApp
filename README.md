@@ -99,22 +99,39 @@ bcryptjs for password hashing
 express-async-errors for error handling
 
 JSON Web Tokens (JWT) for user authentication
+
 Project Structure
+
 controllers/: Contains API logic for tasks and user management
+
 middlewares/: Custom error middleware and authentication middleware
+
 models/: Defines MongoDB data schema using Mongoose
+
 routes/: Defines API routes
+
 utils/: Utility functions and helpers
+
 app.js: Express application setup
+
 server.js: Server initialization
+
 Error Handling Middleware
+
 Comprehensive error handling using custom middleware
+
 Proper status codes and error messages
+
 Middleware for handling missing fields, duplicate entries, and more
+
 User Authentication
+
 JWT tokens for secure authentication
+
 Hashed passwords using bcryptjs
+
 Token verification middleware
+
 Task Management
 API endpoints for creating, updating, deleting tasks
 Validation of task data
