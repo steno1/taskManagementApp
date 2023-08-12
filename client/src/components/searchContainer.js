@@ -13,7 +13,6 @@ const SearchContainer = () => {
     isLoading,
     search,
     searchStatus,
-    searchType,
     sort,
     sortOptions,
     handleChanges,

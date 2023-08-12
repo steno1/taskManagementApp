@@ -21,8 +21,8 @@ const Landing = () => {
           {/* Heading with the text 'Dailytaskapp' */}
           <h1>Daily<span>task</span>app</h1>
           {/* Paragraph with some Lorem Ipsum text */}
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id tortor elit. Phasellus vel justo nec massa fermentum maximus. Aliquam et posuere nulla. Proin pharetra tempus turpis et vestibulum. Vestibulum id nisl sed dui maximus lacinia. Cras nec vulputate lectus. Nunc auctor lectus a risus egestas efficitur. Nulla sed nunc vitae massa pretium lobortis quis quis sapien. Morbi dictum posuere ipsum, ut mollis nunc condimentum vitae. Fusce tempus, diam quis pellentesque tempus, nibh magna feugiat lorem, non vehicula lectus dolor ut arcu. Donec fermentum tortor vitae ante mattis, vel lobortis mauris maximus. Donec sodales in lacus eget dignissim. Cras non eros nec risus mollis venenatis quis et lacus. Vivamus
-          lorem tortor, aliquet eget leo vitae, luctus facilisis lorem.</p>
+          <p>DailyTaskApp revolutionizes your task management by providing a robust platform to organize, track, and optimize your daily tasks. With its user-friendly design, advanced features, and insightful statistics, achieving your goals has never been more convenient and efficient.
+             Experience the power of productivity with DailyTaskApp today.</p>
 
           {/* Link to the '/register' route with a button */}
           <Link to='/register' className='btn btn-hero'>
