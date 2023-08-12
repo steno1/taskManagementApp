@@ -1,5 +1,13 @@
 DailyTaskApp Documentation
-Welcome to the comprehensive documentation for DailyTaskApp, a cutting-edge user management and task tracking application that empowers users to efficiently manage tasks and enhance productivity. This documentation provides an in-depth overview of the app's features, architecture, setup, and usage, showcasing its industry-standard practices and impressive capabilities.
+N/B you can view the site @ https://dailytaskapp.onrender.com/landing
+
+Welcome to the comprehensive documentation for DailyTaskApp, 
+
+a cutting-edge user management and task tracking application that empowers users to efficiently manage tasks and enhance productivity.
+
+This documentation provides an in-depth overview of the app's features, architecture, setup, and usage,
+
+showcasing its industry-standard practices and impressive capabilities.
 
 Table of Contents
 Introduction
