@@ -133,54 +133,94 @@ Hashed passwords using bcryptjs
 Token verification middleware
 
 Task Management
+
 API endpoints for creating, updating, deleting tasks
+
 Validation of task data
+
 Aggregation pipeline for task statistics
+
 5. Frontend
 Technologies Used
+
 React for building the user interface
+
 React Router for navigation
+
 Axios for API requests
+
 React Context for state management
+
 styled-components for styling
+
 recharts for visualization
+
 Global State Management
+
 React Context to manage user authentication and task data
+
 localStorage for storing user data
+
 User Interface Components
+
 Well-designed and responsive components for tasks, statistics, and more
+
 Integration of react-icons for intuitive icons
+
 Routing and Navigation
+
 React Router for seamless navigation between pages
+
 Protected routes for authenticated users
+
 Task Management
+
 User-friendly UI for creating, editing, and deleting tasks
+
 Search and filter options for task overview
+
 Pagination for task list
+
 Statistics and Visualizations
+
 Recharts library for visually appealing and insightful area charts
+
 Display of in-progress, completed, and abandoned task statistics
-6. Database
+
+7. Database
 MongoDB Configuration
+
 MongoDB used as the database for storing tasks and user data
+
 Mongoose for data modeling and interaction
 Data Schema
+
 Clearly defined schemas for tasks and users
+
 Data validation using Mongoose schema attributes
-7. Authentication
+9. Authentication
+
 JWT Token Implementation
+
 Secure authentication using JSON Web Tokens
+
 Token generation upon user login
+
 Token Verification
 Middleware for verifying JWT tokens
+
 Ensures authorized access to routes
-8. Deployment
+
+10. Deployment
 Frontend Deployment
 Build React app: npm run build
-Deployment on hosting platforms like Netlify or Vercel
+
+Deployment on hosting platforms like Netlify or Vercel or render
 Backend Deployment
-Deploy Node.js app using platforms like Heroku or AWS
-9. Conclusion
+
+Deploy Node.js app using platforms like Heroku or AWS or render
+12. Conclusion
+
 DailyTaskApp offers a sophisticated solution for task management and productivity enhancement.
 
 Its user-friendly interface, advanced features, and secure authentication make it an ideal choice
@@ -195,9 +235,13 @@ and experience the power of effective task management.
 DailyTaskApp is continuously evolving. Future enhancements may include:
 
 Collaborative task management
+
 Integration with third-party calendars
+
 Mobile app version for on-the-go productivity
+
 Enhanced data visualization options
+
 Thank you for choosing DailyTaskApp. We believe that this documentation provides
 
 a comprehensive insight into the app's capabilities, architecture, and features.
