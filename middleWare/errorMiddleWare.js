@@ -4,7 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 
 // Custom error middleware to handle and format errors in the application
 const errorMiddleWare = (err, req, res, next) => {
-  console.log(err); // Log the error for debugging purposes
 
   // Create a default error object with a default status code and message
   const defaultError = {

@@ -13,7 +13,7 @@ const TaskInfo = ({ icon, text, Description }) => {
       {/* Render the provided text */}
       <span className='text'>{text}</span>
       {/* Render the Description if it's provided */}
-      {Description && <div className='description'>{Description}</div>}
+      {Description && <div className='description' >{Description}</div>}
     </Wrapper>
   );
 }

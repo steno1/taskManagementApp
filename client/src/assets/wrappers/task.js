@@ -61,7 +61,7 @@ const Wrapper = styled.article`
   }
 
   /* Status-specific styling */
-  .In-Progress {
+  .InProgress {
     background: #fcefc7;
     color: #e9b949;
   }
@@ -84,7 +84,7 @@ const Wrapper = styled.article`
   .content-center {
     margin-right: 0;
     display: grid;
-    width: 18.75rem;
+    width:70%;
     grid-template-columns: 1fr;
     row-gap: 0.5rem;
     /* Responsive layout adjustments */
@@ -164,6 +164,9 @@ const Wrapper = styled.article`
       padding: 10px;
       /* Adjust grid columns for better mobile layout */
       grid-template-columns: 1fr;
+    }
+    .content-center{
+      width:100%
     }
   }
 `;
