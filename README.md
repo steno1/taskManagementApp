@@ -43,10 +43,22 @@ Conclusion
 App Benefits
 Future Enhancements
 1. Introduction
-DailyTaskApp is a robust web application designed to facilitate efficient task management and productivity enhancement. With a React frontend and a Node.js backend, it offers a seamless user experience while providing advanced features for task tracking and management.
+DailyTaskApp is a robust web application designed to
+
+ facilitate efficient task management and productivity enhancement.
+ 
+ With a React frontend and a Node.js backend, it offers a seamless
+ 
+user experience while providing advanced features for task tracking and management.
 
 Overview
-DailyTaskApp offers features like user authentication, task creation, modification, and deletion, comprehensive task statistics, and insightful visualizations. Users can manage their tasks with ease, boosting their productivity and organization.
+DailyTaskApp offers features like user authentication, task creation,
+
+modification, and deletion, comprehensive task statistics,
+
+and insightful visualizations. Users can manage their tasks with ease,
+
+boosting their productivity and organization.
 
 Key Features
 User-Friendly Interface
@@ -68,15 +80,24 @@ Application Structure
 DailyTaskApp follows a structured architecture:
 
 Backend: Node.js, Express, MongoDB
+
 Frontend: React, React Router, Axios, styled-components
+
 Authentication: JWT Tokens
+
 Data Storage: MongoDB
+
 3. Backend
 Technologies Used
+
 Node.js and Express for server-side logic
+
 Mongoose for MongoDB interaction
+
 bcryptjs for password hashing
+
 express-async-errors for error handling
+
 JSON Web Tokens (JWT) for user authentication
 Project Structure
 controllers/: Contains API logic for tasks and user management
@@ -98,7 +119,7 @@ Task Management
 API endpoints for creating, updating, deleting tasks
 Validation of task data
 Aggregation pipeline for task statistics
-4. Frontend
+5. Frontend
 Technologies Used
 React for building the user interface
 React Router for navigation
@@ -122,27 +143,27 @@ Pagination for task list
 Statistics and Visualizations
 Recharts library for visually appealing and insightful area charts
 Display of in-progress, completed, and abandoned task statistics
-5. Database
+6. Database
 MongoDB Configuration
 MongoDB used as the database for storing tasks and user data
 Mongoose for data modeling and interaction
 Data Schema
 Clearly defined schemas for tasks and users
 Data validation using Mongoose schema attributes
-6. Authentication
+7. Authentication
 JWT Token Implementation
 Secure authentication using JSON Web Tokens
 Token generation upon user login
 Token Verification
 Middleware for verifying JWT tokens
 Ensures authorized access to routes
-7. Deployment
+8. Deployment
 Frontend Deployment
 Build React app: npm run build
 Deployment on hosting platforms like Netlify or Vercel
 Backend Deployment
 Deploy Node.js app using platforms like Heroku or AWS
-8. Conclusion
+9. Conclusion
 DailyTaskApp offers a sophisticated solution for task management and productivity enhancement.
 
 Its user-friendly interface, advanced features, and secure authentication make it an ideal choice
