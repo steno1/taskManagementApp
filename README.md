@@ -63,7 +63,7 @@ To get started with DailyTaskApp, follow these steps:
 
 1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/your-username/DailyTaskApp.git
 Navigate to the project directory:
 
