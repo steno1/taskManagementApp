@@ -87,70 +87,99 @@ Copy code
 npm install
 Application Structure
 Backend
-Technologies Used
-Node.js and Express for server-side logic
-Mongoose for MongoDB interaction
-bcryptjs for password hashing
-express-async-errors for error handling
-JSON Web Tokens (JWT) for user authentication
-Project Structure
-controllers/: Contains API logic for tasks and user management
-middlewares/: Custom error middleware and authentication middleware
-models/: Defines MongoDB data schema using Mongoose
-routes/: Defines API routes
-utils/: Utility functions and helpers
-app.js: Express application setup
-server.js: Server initialization
-Error Handling
-Comprehensive error handling using custom middleware
-Proper status codes and error messages
-Middleware for handling missing fields, duplicate entries, and more
-User Authentication
-JWT tokens for secure authentication
-Hashed passwords using bcryptjs
-Token verification middleware
-Task Management
-API endpoints for creating, updating, deleting tasks
-Validation of task data
-Aggregation pipeline for task statistics
-Frontend
-Technologies Used
-React for building the user interface
-React Router for navigation
-Axios for API requests
-React Context for state management
-styled-components for styling
-recharts for visualization
-Global State Management
-React Context to manage user authentication and task data
-localStorage for storing user data
-User Interface Components
-Well-designed and responsive components for tasks, statistics, and more
-Integration of react-icons for intuitive icons
-Routing and Navigation
-React Router for seamless navigation between pages
-Protected routes for authenticated users
-Task Management
-User-friendly UI for creating, editing, and deleting tasks
-Search and filter options for task overview
-Pagination for task list
-Statistics and Visualizations
-Recharts library for visually appealing and insightful area charts
-Display of in-progress, completed, and abandoned task statistics
-Database
-MongoDB Configuration
-MongoDB used as the database for storing tasks and user data
-Mongoose for data modeling and interaction
-Data Schema
-Clearly defined schemas for tasks and users
-Data validation using Mongoose schema attributes
-Authentication
-JWT Token Implementation
-Secure authentication using JSON Web Tokens
-Token generation upon user login
-Token Verification
-Middleware for verifying JWT tokens
-Ensures authorized access to routes
+# Application Structure
+
+## Backend
+
+### Technologies Used
+- Node.js and Express for server-side logic
+- Mongoose for MongoDB interaction
+- bcryptjs for password hashing
+- express-async-errors for error handling
+- JSON Web Tokens (JWT) for user authentication
+
+### Project Structure
+- `controllers/`: Contains API logic for tasks and user management
+- `middlewares/`: Custom error middleware and authentication middleware
+- `models/`: Defines MongoDB data schema using Mongoose
+- `routes/`: Defines API routes
+- `utils/`: Utility functions and helpers
+- `app.js`: Express application setup
+- `server.js`: Server initialization
+
+### Error Handling
+- Comprehensive error handling using custom middleware
+- Proper status codes and error messages
+- Middleware for handling missing fields, duplicate entries, and more
+
+### User Authentication
+- JWT tokens for secure authentication
+- Hashed passwords using bcryptjs
+- Token verification middleware
+
+### Task Management
+- API endpoints for creating, updating, and deleting tasks
+- Validation of task data
+- Aggregation pipeline for task statistics
+
+## Frontend
+
+### Technologies Used
+- React for building the user interface
+- React Router for navigation
+- Axios for API requests
+- React Context for state management
+- styled-components for styling
+- recharts for visualization
+
+### Global State Management
+- React Context to manage user authentication and task data
+- localStorage for storing user data
+
+### User Interface Components
+- Well-designed and responsive components for tasks, statistics, and more
+- Integration of react-icons for intuitive icons
+
+### Routing and Navigation
+- React Router for seamless navigation between pages
+- Protected routes for authenticated users
+
+### Task Management
+- User-friendly UI for creating, editing, and deleting tasks
+- Search and filter options for task overview
+- Pagination for the task list
+
+### Statistics and Visualizations
+- Recharts library for visually appealing and insightful area charts
+- Display of in-progress, completed, and abandoned task statistics
+
+## Database
+
+### MongoDB Configuration
+- MongoDB used as the database for storing tasks and user data
+- Mongoose for data modeling and interaction
+
+### Data Schema
+- Clearly defined schemas for tasks and users
+- Data validation using Mongoose schema attributes
+
+## Authentication
+
+### JWT Token Implementation
+- Secure authentication using JSON Web Tokens
+- Token generation upon user login
+
+### Token Verification
+- Middleware for verifying JWT tokens
+- Ensures authorized access to routes
+
+## Deployment
+
+### Frontend Deployment
+- Build React app:
+```bash
+npm install
+
 Deployment
 Frontend Deployment
 Build React app:
