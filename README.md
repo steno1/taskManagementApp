@@ -12,14 +12,14 @@ Welcome to the comprehensive documentation for DailyTaskApp, a cutting-edge user
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [Backend](#backend)
-  - [Technologies Used](#technologies-used)
+  - [Technologies Used](#backend-technologies-used)
   - [Project Structure](#project-structure)
   - [Error Handling](#error-handling)
   - [Middleware](#middleware)
   - [User Authentication](#user-authentication)
   - [Task Management](#task-management)
 - [Frontend](#frontend)
-  - [Technologies Used](#technologies-used)
+  - [Technologies Used](#frontend-technologies-used)
   - [Global State Management](#global-state-management)
   - [User Interface Components](#user-interface-components)
   - [Routing and Navigation](#routing-and-navigation)
@@ -63,7 +63,7 @@ To get started with DailyTaskApp, follow these steps:
 
 1. Clone the repository:
 
-   ```
+   ```bash
    git clone https://github.com/your-username/DailyTaskApp.git
 Navigate to the project directory:
 
@@ -86,16 +86,6 @@ bash
 Copy code
 npm install
 Application Structure
-DailyTaskApp follows a structured architecture:
-
-Backend
-Node.js, Express, MongoDB
-Frontend
-React, React Router, Axios, styled-components
-Authentication
-JWT Tokens
-Data Storage
-MongoDB
 Backend
 Technologies Used
 Node.js and Express for server-side logic
