@@ -63,27 +63,22 @@ To get started with DailyTaskApp, follow these steps:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/your-username/DailyTaskApp.git
+   ```
+   git clone https://github.com/steno1/DailyTaskApp.git
 Navigate to the project directory:
 
-bash
-Copy code
 cd DailyTaskApp
 Install backend dependencies:
 
-bash
-Copy code
+
 npm install
 Navigate to the client directory:
 
-bash
-Copy code
+
 cd client
 Install frontend dependencies:
 
-bash
-Copy code
+
 npm install
 Application Structure
 Backend
@@ -175,22 +170,9 @@ Backend
 
 ## Deployment
 
-### Frontend Deployment
-- Build React app:
-```bash
-npm install
-
-Deployment
-Frontend Deployment
-Build React app:
-
-bash
-Copy code
-npm run build
-Deploy on hosting platforms like Netlify or Vercel
-
-Backend Deployment
-Deploy Node.js app using platforms like Heroku or AWS
+```
+ Deployment
+Deploy on platforms like Render.com
 Conclusion
 DailyTaskApp offers a sophisticated solution for task management and productivity enhancement. Its user-friendly interface, advanced features, and secure authentication make it an ideal choice for individuals seeking efficient task organization. With a robust architecture, intuitive user interface, and insightful statistics, DailyTaskApp sets a new standard for productivity apps. Explore its potential today and experience the power of effective task management.
 
