@@ -1,14 +1,11 @@
-// Importing necessary components and dependencies
 
-import FormRow from './formRow'; // Importing a form row component for text input
-import FormRowSelect from './FormRowSelect'; // Importing a form row component for select input
-import React from 'react'; // Importing React
-import Wrapper from '../assets/wrappers/SearchContainer'; // Importing a wrapper component
-import { useAppContext } from '../context/appContext'; // Importing the app context for state management
+import FormRow from './formRow'; 
+import FormRowSelect from './FormRowSelect'; 
+import React from 'react'; 
+import Wrapper from '../assets/wrappers/SearchContainer'; 
+import { useAppContext } from '../context/appContext'; 
 
-// Defining the SearchContainer component
 const SearchContainer = () => {
-  // Extracting necessary data and functions from the app context using the useAppContext hook
   const {
     isLoading,
     search,
@@ -21,23 +18,20 @@ const SearchContainer = () => {
     priorityTypeOption,
     priority,
   } = useAppContext();
-
-  // Function to handle changes in the search inputs
+  
   const handleSearch = (e) => {
-    if (isLoading) return; // If loading, prevent further changes
+    if (isLoading) return;
     handleChanges({
       name: e.target.name,
       value: e.target.value,
     });
   };
 
-  // Function to handle form submission (clearing filters)
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    clearFilters(); // Call the clearFilters function from the context
+    e.preventDefault(); 
+    clearFilters(); 
   };
 
-  // Rendering the search form
   return (
     <Wrapper>
       <form className='form'>
@@ -50,8 +44,7 @@ const SearchContainer = () => {
             value={search}
             handleChange={handleSearch}
           />
-
-          {/* FormRowSelect component for select input (status) */}
+              
           <FormRowSelect
             labelText='status'
             name='searchStatus'
@@ -59,8 +52,7 @@ const SearchContainer = () => {
             handleChange={handleSearch}
             list={['all', ...statusTypeOption]}
           />
-
-          {/* FormRowSelect component for select input (priority) */}
+              
           <FormRowSelect
             labelText='priority'
             name='priority'
@@ -69,7 +61,7 @@ const SearchContainer = () => {
             list={['all', ...priorityTypeOption]}
           />
 
-          {/* FormRowSelect component for select input (sort) */}
+
           <FormRowSelect
             labelText='sort'
             name='sort'
@@ -78,11 +70,10 @@ const SearchContainer = () => {
             list={['all', ...sortOptions]}
           />
 
-          {/* Button to clear filters */}
           <button
             className='btn btn-block btn-danger'
-            disabled={isLoading} // Disable the button if loading
-            onClick={handleSubmit} // Handle the button click
+            disabled={isLoading}
+            onClick={handleSubmit} 
           >
             Clear
           </button>
@@ -92,5 +83,4 @@ const SearchContainer = () => {
   );
 };
 
-// Exporting the SearchContainer component as the default export
 export default SearchContainer;
