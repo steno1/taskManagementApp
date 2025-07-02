@@ -1,4 +1,3 @@
-// Importing necessary action types
 
 import {
   CHANGE_PAGE,
@@ -35,9 +34,7 @@ import {
 
 import { initialState } from "./appContext";
 
-// Reducer function to manage the state based on different actions
 const reducer = (state, action) => {
-  // Handling the action to display an alert
   if (action.type === DISPLAY_ALERT) {
     return {
       ...state,
@@ -47,7 +44,6 @@ const reducer = (state, action) => {
     };
   }
   
-  // Handling the action to clear the alert
   if (action.type === CLEAR_ALERT) {
     return {
       ...state,
@@ -57,7 +53,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to begin user registration
   if (action.type === REGISTER_USER_BEGIN) {
     return {
       ...state,
@@ -65,7 +60,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when user registration is successful
   if (action.type === REGISTER_USER_SUCCESS) {
     return {
       ...state,
@@ -78,7 +72,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when user registration fails
   if (action.type === REGISTER_USER_ERROR) {
     return {
       ...state,
@@ -89,7 +82,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to begin user login
   if (action.type === LOGIN_USER_BEGIN) {
     return {
       ...state,
@@ -97,7 +89,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when user login is successful
   if (action.type === LOGIN_USER_SUCCESS) {
     return {
       ...state,
@@ -110,7 +101,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when user login fails
   if (action.type === LOGIN_USER_ERROR) {
     return {
       ...state,
@@ -121,7 +111,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to toggle the sidebar
   if (action.type === TOGGLE_SIDEBAR) {
     return {
       ...state,
@@ -129,7 +118,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to log out the user
   if (action.type === LOGOUT_USER) {
     return {
       ...initialState,
@@ -137,8 +125,7 @@ const reducer = (state, action) => {
       token: null,
     };
   }
-
-  // Handling the action to begin updating user details
+  
   if (action.type === UPDATE_USER_BEGIN) {
     return {
       ...state,
@@ -146,7 +133,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when user details update is successful
   if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
@@ -158,8 +144,7 @@ const reducer = (state, action) => {
       alertText: "User profile successfully updated...",
     };
   }
-
-  // Handling the action when user details update fails
+  
   if (action.type === UPDATE_USER_ERROR) {
     return {
       ...state,
@@ -170,7 +155,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to handle form input changes
   if (action.type === HANDLE_CHANGE) {
     return {
       ...state,
@@ -179,7 +163,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to clear form input values
   if (action.type === CLEAR_VALUES) {
     const initialState = {
       isEditing: false,
@@ -193,7 +176,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to begin creating a new task
   if (action.type === CREATE_TASK_BEGIN) {
     return {
       ...state,
@@ -201,7 +183,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when a new task is successfully created
   if (action.type === CREATE_TASK_SUCCESS) {
     return {
       ...state,
@@ -211,8 +192,7 @@ const reducer = (state, action) => {
       alertText: "New task created...",
     };
   }
-
-  // Handling the action when task creation fails
+  
   if (action.type === CREATE_TASK_ERROR) {
     return {
       ...state,
@@ -223,7 +203,7 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to begin fetching all tasks
+
   if (action.type === GET_TASK_BEGIN) {
     return {
       ...state,
@@ -232,7 +212,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action when fetching all tasks is successful
   if (action.type === GET_TASK_SUCCESS) {
     return {
       ...state,
@@ -243,7 +222,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // Handling the action to set a task in edit mode
   if (action.type ===SET_EDIT_TASK) {
     const task = state.tasks.find((task) => task._id === action.payload.id);
     const { _id, Title, Description, priority, status } = task;
@@ -333,10 +311,9 @@ isLoading:true
      page:action.payload.page
     };
   }
-  
-  // Throwing an error for an unknown action type
+
   throw new Error(`No such action: ${action.type}`);
 };
 
-// Exporting the reducer function as the default export
+
 export default reducer;
