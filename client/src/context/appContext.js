@@ -1,4 +1,3 @@
-// Importing necessary action types
 
 import {
   CHANGE_PAGE,
@@ -39,9 +38,8 @@ import reducer from "./reducer";
 const token=localStorage.getItem("token")
 const user=localStorage.getItem("user")
 
-// Initial state for the application context
 const initialState = {
-  // General state
+
   isLoading: false,
   showAlert: false,
   alertText: "",
@@ -50,7 +48,7 @@ const initialState = {
   token:token, 
   isEditing:false,
   editTaskId:"",
-  // Task form state
+
   Title:"",
   Description:"",
   statusTypeOption:['InProgress', 'Completed', 'Abandoned'],
@@ -71,20 +69,17 @@ const initialState = {
 };
 
 
-// Creating the application context using React.createContext()
 const AppContext = React.createContext();
 
-// Provider component to manage the application state and actions
 const AppProvider = ({ children }) => {
-  // Using useReducer to manage the state with the specified reducer and initial state
+ 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Creating an instance of axios for API requests with the provided base URL
+
   const authFetch=axios.create({
     baseURL:"/api/v1",
   });
 
-  // Add request interceptors for attaching the token to outgoing requests
   authFetch.interceptors.request.use(
     (config) => {
       config.headers["Authorization"] = `Bearer ${state.token}`;
@@ -95,7 +90,6 @@ const AppProvider = ({ children }) => {
     }
   );
 
-  // Add response interceptors to handle unauthorized (401) responses
   authFetch.interceptors.response.use(
     (response) => {
       return response;
@@ -109,25 +103,21 @@ const AppProvider = ({ children }) => {
     }
   )
 
-  // Action to display an alert message
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
   };
 
-  // Action to add user details to localStorage
   const addUserToLocalStorage=({user, token})=>{
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token)
   }
-  
-  // Action to remove user details from localStorage
+
   const removeUserFromLocalStorage=()=>{
     localStorage.removeItem("user");
     localStorage.removeItem("token")
   }
 
-  // Action to register a new user
   const registerUser=async (currentUser)=>{
     dispatch({type:REGISTER_USER_BEGIN})
     try {
@@ -152,7 +142,6 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
-  // Action to log in a user
   const loginUser=async(currentUser)=>{
     console.log(currentUser)
     dispatch({type:LOGIN_USER_BEGIN})
@@ -176,25 +165,21 @@ const AppProvider = ({ children }) => {
     clearAlert();
   }
 
-  // Action to clear the alert after a specified time
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 3000);
   };
 
-  // Action to toggle the sidebar
   const toggleSideBar=()=>{
     dispatch({type:TOGGLE_SIDEBAR})
   }
 
-  // Action to log out the user
   const logoutUser=()=>{
     dispatch({type:LOGOUT_USER})
     removeUserFromLocalStorage();
   }
 
-  // Action to update user details
   const userUpdate=async (currentUser)=>{ 
     dispatch({type:UPDATE_USER_BEGIN})
     try {
@@ -217,19 +202,16 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
-  // Action to handle form input changes
   const handleChanges=({name, value})=>{
     dispatch({type:HANDLE_CHANGE, payload:{
       name, value
     }})
   }
 
-  // Action to clear form input values
   const clearValues=()=>{
     dispatch({type:CLEAR_VALUES})
   }
 
-  // Action to create a new task
   const createTask=async()=>{
     dispatch({type:CREATE_TASK_BEGIN})
     try {
@@ -250,8 +232,7 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   }
-  
-  // Action to get all tasks
+
   const getAllTask=async()=>{
  const {priority,search,searchStatus,sort,page}=state   
 let url=`/tasks/getAllTask?page=${page}&status=${searchStatus}&priority=${priority}&sort=${sort}`
@@ -272,14 +253,12 @@ url=url+`&search=${search}`
     clearAlert();
   }
 
-  // Action to set a task in edit mode
   const setEditTask=async(id)=>{
     dispatch({type:SET_EDIT_TASK, payload:{
       id
     }});
   }
 
-  // Action to edit a task
   const editTask=async()=>{
     dispatch({type:EDIT_TASK_BEGIN});
    
@@ -302,7 +281,6 @@ url=url+`&search=${search}`
     clearAlert();
   }
 
- // Action to delete a task
  const deleteTask = async (jobId) => {
   dispatch({ type: DELETE_TASK_BEGIN });
   try {
@@ -336,7 +314,6 @@ clearAlert()
     )
   }
 
-  // Return the context provider with the state and actions as values
   return (
     <AppContext.Provider value={{ ...state, displayAlert,
      clearAlert, registerUser, loginUser, clearFilters,
@@ -349,10 +326,8 @@ clearAlert()
   );
 };
 
-// Custom hook to conveniently access the application context
 const useAppContext = () => {
   return useContext(AppContext);
 };
 
-// Exporting the necessary components and hooks
 export { AppProvider, initialState, useAppContext };
