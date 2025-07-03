@@ -1,15 +1,13 @@
-// Import the CustomApiError class and the StatusCodes module
 
-import CustomApiError from "./CustomApi.js"; // Importing the CustomApiError class for extension
-import { StatusCodes } from "http-status-codes"; // Importing the module for HTTP status codes
+import CustomApiError from "./CustomApi.js"; 
+import { StatusCodes } from "http-status-codes"; 
 
-// Custom error class representing an UnAuthorizedError
 class unAuthorizedError extends CustomApiError {
     constructor(message) {
-        super(message); // Call the constructor of the extended class (CustomApiError)
+        super(message); 
 
-        this.statusCode = StatusCodes.UNAUTHORIZED; // Set the HTTP status code to indicate unauthorized access
+        this.statusCode = StatusCodes.UNAUTHORIZED; 
     }
 }
 
-export default unAuthorizedError; // Export the unAuthorizedError class for use in other files
+export default unAuthorizedError; 
