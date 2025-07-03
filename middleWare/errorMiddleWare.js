@@ -1,4 +1,3 @@
-// Import the necessary module for HTTP status codes
 
 import { StatusCodes } from 'http-status-codes';
 
@@ -23,10 +22,10 @@ const errorMiddleWare = (err, req, res, next) => {
     defaultError.msg = `${Object.keys(err.keyValue)[0]} field has to be unique`;
   }
 
-  console.log(err); // Log the error again for additional debugging
+  console.log(err);
 
   // Send a response with the formatted error message and status code
   res.status(defaultError.statusCode).json({ msg: defaultError.msg });
 };
 
-export default errorMiddleWare; // Export the error middleware for use in other files
+export default errorMiddleWare; 
