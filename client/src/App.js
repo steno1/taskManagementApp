@@ -1,4 +1,4 @@
-// Importing necessary components from respective files
+
 import {
   AddTask,
   AllTask,
@@ -12,9 +12,7 @@ import { Error, Landing, ProtectedRoute, Register } from "./pages";
 function App() {
   return (
     <>
-      {/* Wrapping the entire application with BrowserRouter to enable routing */}
-      <BrowserRouter>
-        {/* Defining the Routes for the application */}
+      <BrowserRouter>}
         <Routes>
           {/* ProtectedRoute wraps the SharedLayout component */}
           <Route path="/" element={
