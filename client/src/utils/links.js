@@ -1,4 +1,3 @@
-// Importing necessary react-icons components
 
 import { FaWpforms } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
