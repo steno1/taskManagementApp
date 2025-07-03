@@ -4,9 +4,6 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage.js';
 import { useAppContext } from '../../context/appContext';
 import { useState } from 'react';
 
-//import { useNavigate } from 'react-router-dom';
-
-
 const Profile = () => {
   const {user, showAlert, displayAlert, userUpdate, isLoading}=useAppContext()
   const [name, setName]=useState(user?.name)
